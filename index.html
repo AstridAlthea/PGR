@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punishing: Gray Raven - Character Gallery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 100%);
+            color: #e0e0ff;
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(0, 0, 20, 0.7);
+            border-bottom: 1px solid #4a3fff;
+            box-shadow: 0 5px 15px rgba(74, 63, 255, 0.3);
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #8a82ff, #5d9aff, #47d1ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(125, 200, 255, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a0a0ff;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: rgba(10, 10, 30, 0.7);
+            border-radius: 10px;
+            border: 1px solid #4a3fff;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #36336b, #25254d);
+            border: 1px solid #5d9aff;
+            color: #b8c4ff;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(45deg, #5d9aff, #8a82ff);
+            color: #0a0a1a;
+            box-shadow: 0 0 15px rgba(93, 154, 255, 0.7);
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .character-card {
+            background: linear-gradient(135deg, #16163a 0%, #0c0c24 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #4a3fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .character-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(74, 63, 255, 0.4);
+        }
+        
+        .character-img {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(45deg, #36336b, #25254d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5d9aff;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .character-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(93, 154, 255, 0.2), rgba(138, 130, 255, 0.2));
+        }
+        
+        .character-info {
+            padding: 20px;
+        }
+        
+        .character-name {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #8a82ff;
+        }
+        
+        .character-class {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(93, 154, 255, 0.2);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            color: #5d9aff;
+            border: 1px solid #5d9aff;
+        }
+        
+        .character-desc {
+            color: #b8c4ff;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        
+        .character-stats {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .stat {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #47d1ff;
+        }
+        
+        .stat-name {
+            font-size: 0.8rem;
+            color: #a0a0ff;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #8a82ff;
+            font-size: 0.9rem;
+            border-top: 1px solid #4a3fff;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Punishing: Gray Raven</h1>
+        <p class="subtitle">Explore the diverse cast of constructs fighting to reclaim the world from the Punishing Virus. Each character possesses unique abilities and playstyles to master.</p>
+    </header>
+    
+    <div class="container">
+        <div class="filters">
+            <button class="filter-btn active">All</button>
+            <button class="filter-btn">Attack</button>
+            <button class="filter-btn">Tank</button>
+            <button class="filter-btn">Support</button>
+            <button class="filter-btn">S-Rank</button>
+            <button class="filter-btn">A-Rank</button>
+        </div>
+        
+        <div class="gallery">
+            <!-- Character 1 -->
+            <div class="character-card">
+                <div class="character-img">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="character-info">
+                    <h2 class="character-name">Lucia</h2>
+                    <span class="character-class">Attack • S-Rank</span>
+                    <p class="character-desc">The captain of Gray Raven squad. A skilled swordswoman with incredible speed and precision in combat.</p>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-value">9.5</div>
+                            <div class="stat-name">ATTACK</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">8.0</div>
+                            <div class="stat-name">DEFENSE</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">9.8</div>
+                            <div class="stat-name">SPEED</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Character 2 -->
+            <div class="character-card">
+                <div class="character-img">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="character-info">
+                    <h2 class="character-name">Liv</h2>
+                    <span class="character-class">Support • S-Rank</span>
+                    <p class="character-desc">The team's medic and support. She provides healing and buffs to allies while capable of holding her own in combat.</p>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-value">7.0</div>
+                            <div class="stat-name">ATTACK</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">8.5</div>
+                            <div class="stat-name">DEFENSE</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">8.0</div>
+                            <div class="stat-name">HEAL</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Character 3 -->
+            <div class="character-card">
+                <div class="character-img">
+                    <i class="fas fa-fist-raised"></i>
+                </div>
+                <div class="character-info">
+                    <h2 class="character-name">Lee</h2>
+                    <span class="character-class">Attack • S-Rank</span>
+                    <p class="character-desc">A ranged specialist with exceptional gunplay skills. He excels at dealing damage from a distance.</p>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-value">9.2</div>
+                            <div class="stat-name">ATTACK</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">7.5</div>
+                            <div class="stat-name">DEFENSE</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">8.2</div>
+                            <div class="stat-name">RANGE</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Character 4 -->
+            <div class="character-card">
+                <div class="character-img">
+                    <i class="fas fa-armor"></i>
+                </div>
+                <div class="character-info">
+                    <h2 class="character-name">Nanami</h2>
+                    <span class="character-class">Tank • A-Rank</span>
+                    <p class="character-desc">A heavy-hitting tank that can disrupt enemy formations and protect allies with her massive weapon.</p>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-value">8.5</div>
+                            <div class="stat-name">ATTACK</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">9.7</div>
+                            <div class="stat-name">DEFENSE</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">6.5</div>
+                            <div class="stat-name">MOBILITY</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Character 5 -->
+            <div class="character-card">
+                <div class="character-img">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="character-info">
+                    <h2 class="character-name">Bianca</h2>
+                    <span class="character-class">Attack • S-Rank</span>
+                    <p class="character-desc">A lightning-fast attacker who specializes in rapid strikes and elemental damage.</p>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-value">9.3</div>
+                            <div class="stat-name">ATTACK</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">7.8</div>
+                            <div class="stat-name">DEFENSE</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">9.5</div>
+                            <div class="stat-name">SPEED</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Character 6 -->
+            <div class="character-card">
+                <div class="character-img">
+                    <i class="fas fa-snowflake"></i>
+                </div>
+                <div class="character-info">
+                    <h2 class="character-name">Wanshi</h2>
+                    <span class="character-class">Support • A-Rank</span>
+                    <p class="character-desc">A support construct who uses ice-based abilities to control the battlefield and protect allies.</p>
+                    <div class="character-stats">
+                        <div class="stat">
+                            <div class="stat-value">7.2</div>
+                            <div class="stat-name">ATTACK</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">8.2</div>
+                            <div class="stat-name">DEFENSE</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">8.7</div>
+                            <div class="stat-name">SUPPORT</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Punishing: Gray Raven Character Gallery | Fan-made Website</p>
+    </footer>
+
+    <script>
+        // Simple filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // In a real implementation, this would filter the characters
+                    // For this example, we'll just log the filter
+                    console.log('Filtering by: ' + this.textContent);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
