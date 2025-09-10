@@ -26,6 +26,20 @@
             background: rgba(0, 0, 20, 0.7);
             border-bottom: 1px solid #4a3fff;
             box-shadow: 0 5px 15px rgba(74, 63, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.alphacoders.com/118/1186357.jpg') center/cover no-repeat;
+            opacity: 0.2;
+            z-index: -1;
         }
         
         h1 {
@@ -50,6 +64,32 @@
             max-width: 1200px;
             margin: 30px auto;
             padding: 0 20px;
+        }
+        
+        .search-box {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .search-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px 20px;
+            border-radius: 30px;
+            border: 1px solid #5d9aff;
+            background: rgba(10, 10, 30, 0.8);
+            color: #e0e0ff;
+            font-size: 1.1rem;
+            outline: none;
+        }
+        
+        .search-input:focus {
+            box-shadow: 0 0 15px rgba(93, 154, 255, 0.7);
+        }
+        
+        .search-input::placeholder {
+            color: #8a82ff;
         }
         
         .filters {
@@ -102,25 +142,20 @@
         
         .character-img {
             width: 100%;
-            height: 250px;
-            background: linear-gradient(45deg, #36336b, #25254d);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #5d9aff;
-            font-size: 3rem;
-            position: relative;
+            height: 300px;
             overflow: hidden;
+            position: relative;
         }
         
-        .character-img::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(93, 154, 255, 0.2), rgba(138, 130, 255, 0.2));
+        .character-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .character-card:hover .character-img img {
+            transform: scale(1.1);
         }
         
         .character-info {
@@ -199,6 +234,10 @@
     </header>
     
     <div class="container">
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="Search characters...">
+        </div>
+        
         <div class="filters">
             <button class="filter-btn active">All</button>
             <button class="filter-btn">Attack</button>
@@ -212,7 +251,7 @@
             <!-- Character 1 -->
             <div class="character-card">
                 <div class="character-img">
-                    <i class="fas fa-robot"></i>
+                    <img src="https://images6.alphacoders.com/114/1149971.jpg" alt="Lucia">
                 </div>
                 <div class="character-info">
                     <h2 class="character-name">Lucia</h2>
@@ -237,8 +276,8 @@
             
             <!-- Character 2 -->
             <div class="character-card">
-                <div class="character-img">  <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fgrayravens.com%2Fwiki%2FLiv%3A_Empyrea&psig=AOvVaw32s5lNW0hPQPGVWCOlS_RL&ust=1757583414485000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCKjog9fzzY8DFQAAAAAdAAAAABAE">
-                    <i class="fas fa-shield-alt"></i>
+                <div class="character-img">
+                    <img src="https://images5.alphacoders.com/114/1149972.png" alt="Liv">
                 </div>
                 <div class="character-info">
                     <h2 class="character-name">Liv</h2>
@@ -263,8 +302,8 @@
             
             <!-- Character 3 -->
             <div class="character-card">
-                <div class="character-img"><img src="https://share.google/images/BxnjukuwtZGsw5zkn">
-                    <i class="fas fa-fist-raised"></i>
+                <div class="character-img">
+                    <img src="https://images.alphacoders.com/118/1186357.jpg" alt="Lee">
                 </div>
                 <div class="character-info">
                     <h2 class="character-name">Lee</h2>
@@ -290,7 +329,7 @@
             <!-- Character 4 -->
             <div class="character-card">
                 <div class="character-img">
-                    <i class="fas fa-armor"></i>
+                    <img src="https://images6.alphacoders.com/114/1149970.jpg" alt="Nanami">
                 </div>
                 <div class="character-info">
                     <h2 class="character-name">Nanami</h2>
@@ -316,7 +355,7 @@
             <!-- Character 5 -->
             <div class="character-card">
                 <div class="character-img">
-                    <i class="fas fa-bolt"></i>
+                    <img src="https://images2.alphacoders.com/114/1149973.jpg" alt="Bianca">
                 </div>
                 <div class="character-info">
                     <h2 class="character-name">Bianca</h2>
@@ -342,7 +381,7 @@
             <!-- Character 6 -->
             <div class="character-card">
                 <div class="character-img">
-                    <i class="fas fa-snowflake"></i>
+                    <img src="https://images7.alphacoders.com/123/1232494.jpg" alt="Wanshi">
                 </div>
                 <div class="character-info">
                     <h2 class="character-name">Wanshi</h2>
@@ -375,6 +414,8 @@
         // Simple filter functionality
         document.addEventListener('DOMContentLoaded', function() {
             const filterButtons = document.querySelectorAll('.filter-btn');
+            const searchInput = document.querySelector('.search-input');
+            const characterCards = document.querySelectorAll('.character-card');
             
             filterButtons.forEach(button => {
                 button.addEventListener('click', function() {
@@ -384,9 +425,34 @@
                     // Add active class to clicked button
                     this.classList.add('active');
                     
-                    // In a real implementation, this would filter the characters
-                    // For this example, we'll just log the filter
-                    console.log('Filtering by: ' + this.textContent);
+                    // Get filter text
+                    const filter = this.textContent.toLowerCase();
+                    
+                    // Filter characters
+                    characterCards.forEach(card => {
+                        const characterText = card.textContent.toLowerCase();
+                        
+                        if (filter === 'all' || characterText.includes(filter)) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                const searchText = this.value.toLowerCase();
+                
+                characterCards.forEach(card => {
+                    const characterText = card.textContent.toLowerCase();
+                    
+                    if (characterText.includes(searchText)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
                 });
             });
         });
